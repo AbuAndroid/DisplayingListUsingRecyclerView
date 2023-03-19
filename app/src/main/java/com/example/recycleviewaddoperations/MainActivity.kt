@@ -1,41 +1,44 @@
 package com.example.recycleviewaddoperations
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recycleviewaddoperations.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
-    var uiEtUserName : EditText? = null
-    var uiBtSubmit : Button? = null
+    private var uiEtUserName : EditText? = null
+    private var uiBtSubmit : Button? = null
+    private var recyclerView:RecyclerView?=null
     lateinit var adapter:RecycleAdapter
     lateinit var names : ArrayList<UserNameModel>
+
+    private val binding:ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         setUpUi()
         setUpListeners()
     }
 
     private fun setUpUi() {
-        uiEtUserName = findViewById(R.id.uiEtUserName)
-        uiBtSubmit = findViewById(R.id.uiBtsubmit)
-        var recycleView: RecyclerView = findViewById(R.id.uiRvUserRecycleList)
-        recycleView.layoutManager = LinearLayoutManager(this)
+        uiEtUserName = binding.uiEtUserName
+        uiBtSubmit = binding.uiBtAddUserName
+        recyclerView= binding.uiRvUserNameList
         names = arrayListOf<UserNameModel>(
             UserNameModel(
                 userName = "Syed Abuthahir"
             )
         )
         adapter = RecycleAdapter(names)
-        recycleView.adapter =adapter
+        recyclerView!!.adapter =adapter
 
     }
 
